@@ -9,16 +9,38 @@
 
       <div class="small">
         <template v-if="isList">
-          <p v-for="(line, i) in listItemsLines" :key="i" style="margin: 0;">
-            <span
-              v-for="(term, j) in line"
-              :key="j"
-              style="margin-right: 12px;"
-            >
-              <span style="color: black;">•</span> {{ term }}
-            </span>
-          </p>
+          <!-- Desktop -->
+          <div class="d-none d-md-block">
+            <p v-for="(line, i) in listItemsLines" :key="'desktop-' + i" style="margin: 0;">
+              <span
+                v-for="(term, j) in line"
+                :key="'term-' + j"
+                style="margin-right: 12px;"
+              >
+                <span style="color: black;">•</span> {{ term }}
+              </span>
+            </p>
+          </div>
+
+          <!-- Mobile -->
+          <div class="d-block d-md-none">
+            <ul class="list-unstyled mb-0">
+              <li
+                v-for="(line, i) in listItemsLines"
+                :key="'mobile-line-' + i"
+              >
+                <div
+                  v-for="(term, j) in line"
+                  :key="'mobile-term-' + j"
+                  class="d-block mb-1"
+                >
+                  <span style="color: black;">•</span> {{ term }}
+                </div>
+              </li>
+            </ul>
+          </div>
         </template>
+
         <template v-else>
           <p class="small" style="white-space: pre-line;">{{ text }}</p>
         </template>
@@ -44,8 +66,6 @@ const props = defineProps({
 <style scoped>
 p {
   font-size: 1.0rem;
-}
-p {
   white-space: pre-line;
 }
 
